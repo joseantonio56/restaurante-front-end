@@ -1,0 +1,102 @@
+<div class="container py-4">
+
+  <h2 class="text-center mb-4">Gestión de Productos</h2>
+
+
+
+
+  <!-- Formulario de crear/editar -->
+  <div class="card p-3 mb-4">
+    <h5>{{ editando ? 'Editar Producto' : 'Nuevo Producto' }}</h5>
+    <form (ngSubmit)="guardarProducto()" #productoForm="ngForm">
+
+      <div class="mb-2">
+        <label class="form-label">Descripción</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevoProducto.descripcion" name="descripcion" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Stock</label>
+        <input type="number" class="form-control" [(ngModel)]="nuevoProducto.stock" name="stock" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Precio</label>
+        <input type="number" step="0.01" class="form-control" [(ngModel)]="nuevoProducto.precio" name="precio" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Activo</label>
+        <select class="form-select" [(ngModel)]="nuevoProducto.activo" name="activo">
+          <option [ngValue]="true">Sí</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Rol</label>
+        <select class="form-select" [(ngModel)]="nuevoProducto.rol" name="rol">
+          <option value="BARRA">BARRA</option>
+          <option value="COCINA">COCINA</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">{{ editando ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">Cancelar</button>
+    </form>
+  </div>
+ <!-- 🔹 BOTONES DE FILTRO -->
+<div class="text-center mb-4">
+  <h4 class="text-center m-2">Botones para filtrar productos</h4>
+  <button 
+    class="btn btn-outline-dark me-2" 
+    [class.active]="filtroRol === 'TODOS'" 
+    (click)="cambiarFiltro('TODOS')">
+    <i class="bi bi-grid-fill me-1"></i> Todos
+  </button>
+
+  <button 
+    class="btn btn-outline-success me-2" 
+    [class.active]="filtroRol === 'BARRA'" 
+    (click)="cambiarFiltro('BARRA')">
+    <i class="bi bi-cup-straw me-1"></i> Barra
+  </button>
+
+  <button 
+    class="btn btn-outline-primary" 
+    [class.active]="filtroRol === 'COCINA'" 
+    (click)="cambiarFiltro('COCINA')">
+    <i class="bi bi-egg-fried me-1"></i> Cocina
+  </button>
+</div>
+  <!-- Tabla de productos -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Descripción</th>
+          <th>Stock</th>
+          <th>Precio</th>
+          <th>Activo</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let producto of productosFiltrados">
+          <td>{{ producto.idProducto }}</td>
+          <td>{{ producto.descripcion }}</td>
+          <td>{{ producto.stock }}</td>
+          <td>{{ producto.precio | currency:'EUR' }}</td>
+          <td>{{ producto.activo ? 'Sí' : 'No' }}</td>
+          <td>{{ producto.rol }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editarProducto(producto)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarProducto(producto.idProducto!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

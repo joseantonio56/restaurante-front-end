@@ -1,0 +1,75 @@
+body {
+  background-color: #121212;
+}
+
+h2 {
+ color: #f8f9fa;
+}
+
+/* Tarjeta con animación de hover */
+.mesa-card {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.mesa-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+/* Colores más intensos */
+.bg-success {
+  background-color: #28a745 !important;
+}
+
+.bg-danger {
+  background-color: #dc3545 !important;
+}
+/* ------------------------------------- */
+/* ESTILOS DE MESA (Interacción y Puntero) */
+/* ------------------------------------- */
+
+.mesa-item {
+    /* Estilos de transición para el efecto hover */
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer; /* <--- Esto cambia el cursor a una mano */
+    border-radius: 8px; /* Pequeño redondeo */
+}
+
+/* Estilo al pasar el ratón (Hover) */
+.mesa-item:hover {
+    transform: translateY(-5px); /* Desplaza ligeramente hacia arriba */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+/* ------------------------------------- */
+/* ESTILOS DE LA TARJETA FLOTANTE (Modal) */
+/* ------------------------------------- */
+
+.card-opciones-flotante {
+    /* Posición fija en el centro de la pantalla */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* Centrado perfecto usando transform */
+    transform: translate(-50%, -50%);
+    z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    min-width: 350px;
+    /* Estilos para el aspecto visual */
+    background-color: white; 
+    border: 2px solid #0d6efd; /* Borde azul de Bootstrap primary */
+}
+
+/* Opcional: Estilo para un fondo oscuro detrás del modal */
+/* Si usas un overlay (no está en el HTML, pero es una buena práctica) */
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+

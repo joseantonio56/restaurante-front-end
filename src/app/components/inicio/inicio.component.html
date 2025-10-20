@@ -1,0 +1,51 @@
+<div class="container py-4">
+  <h2 class="text-center mb-4">Gestión de Mesas</h2>
+
+  <div class="row g-3">
+    <div class="col-md-3" *ngFor="let mesa of mesas">
+      <div class="card text-center mesa-item" 
+           [ngClass]="{'bg-success text-white': mesa.estado === 'LIBRE', 'bg-danger text-white': mesa.estado === 'OCUPADA'}"
+           (click)="gestionarClickMesa(mesa)"> 
+        <div class="card-body">
+          <h5 class="card-title">Mesa {{ mesa.id }}</h5>
+          <p class="card-text">{{ mesa.estado }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta de Opciones -->
+  <div *ngIf="mostrarOpciones && mesaSeleccionada" 
+       class="mt-4 card-opciones-flotante p-4 rounded-lg bg-light border border-primary">
+    
+    <h5>Opciones para Mesa {{ mesaSeleccionada.id }} ({{ mesaSeleccionada.estado }})</h5>
+    <hr>
+
+    <div class="d-grid gap-2 mt-3">
+      <!-- Botón de Pedido BARRA -->
+      <button class="btn btn-primary" type="button" (click)="abrirProductos('BARRA')">
+        <i class="bi bi-cup-hot"></i> Iniciar Pedido - BARRA
+      </button>
+
+      <!-- Botón de Pedido COCINA -->
+      <button class="btn btn-secondary" type="button" (click)="abrirProductos('COCINA')">
+        <i class="bi bi-egg-fried"></i> Iniciar Pedido - COCINA
+      </button>
+
+      <hr *ngIf="mesaSeleccionada.estado === 'OCUPADA'">
+
+      <!-- Botón de Liberar Mesa -->
+      <button *ngIf="mesaSeleccionada.estado === 'OCUPADA'" 
+              class="btn btn-outline-danger" 
+              type="button"
+              (click)="liberarMesa()">
+        <i class="bi bi-x-circle"></i> LIBERAR MESA (Cobrar / Cerrar)
+      </button>
+
+      <!-- Botón de Cerrar Opciones -->
+      <button class="btn btn-link text-dark mt-2" type="button" (click)="cerrarOpciones()">
+        Cerrar Opciones
+      </button>
+    </div>
+  </div>
+</div>

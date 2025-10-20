@@ -1,0 +1,77 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">Restaurante</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{active: isActive('/inicio')}" routerLink="/inicio">
+            <i class="bi bi-house-door-fill"></i> Inicio
+          </a>
+        </li>
+
+        <!-- Solo ROLE_ADMIN puede ver Productos -->
+        <li *ngIf="rol === 'ROLE_ADMIN'" class="nav-item">
+          <a class="nav-link" [ngClass]="{active: isActive('/productos')}" routerLink="/productos">
+            <i class="bi bi-box-seam"></i> Productos
+          </a>
+        </li>
+
+        <li *ngIf="rol === 'ROLE_ADMIN'" class="nav-item">
+          <a class="nav-link" [ngClass]="{active: isActive('/usuarios')}" routerLink="/usuarios">
+            <i class="bi bi-people-fill"></i> Usuarios
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [ngClass]="{active: isActive('/ventas')}" routerLink="/ventas">
+            <i class="bi bi-basket-fill"></i> Ventas
+          </a>
+        </li>
+
+        <!-- Pedido Barra con badge -->
+        <li class="nav-item position-relative">
+          <a class="nav-link" [ngClass]="{active: isActive('/pedido-barra')}" routerLink="/pedido-barra">
+            <i class="bi bi-cup-straw me-1"></i> Pedido-barra
+            <span *ngIf="totalPedidosBarra > 0"
+              class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+              {{ totalPedidosBarra }}
+            </span>
+          </a>
+        </li>
+
+
+
+        <!-- Pedido Cocina con badge -->
+        <li class="nav-item position-relative">
+          <a class="nav-link" [ngClass]="{active: isActive('/pedido-cocina')}" routerLink="/pedido-cocina">
+            <i class="bi bi-egg-fried me-1"></i> Pedido-cocina
+            <span *ngIf="totalPedidosCocina > 0"
+              class="badge bg-danger position-absolute top-0 start-100 translate-middle">
+              {{ totalPedidosCocina }}
+            </span>
+          </a>
+        </li>
+
+      </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item me-3" *ngIf="rol">
+          <span class="navbar-text text-light">
+            <i class="bi bi-person-circle"></i> Bienvenido {{ getBienvenida() }}
+          </span>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-outline-light" (click)="logout()">
+            <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,24 @@
+<div class="container py-4">
+  <h2 class="text-center mb-4">Mesas</h2>
+
+  <div class="row g-3">
+    <div class="col-3" *ngFor="let mesa of mesas">
+      <div class="card text-center" [ngClass]="{'bg-success': mesa.estado === 'LIBRE', 'bg-danger': mesa.estado === 'OCUPADA'}"
+           (click)="seleccionarMesa(mesa)">
+        <div class="card-body">
+          <h5 class="card-title">Mesa {{ mesa.id }}</h5>
+          <p class="card-text">{{ mesa.estado }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="mostrarOpciones && mesaSeleccionada" class="mt-4">
+    <div class="card p-3">
+      <h5>Opciones para Mesa {{ mesaSeleccionada.id }}</h5>
+      <button class="btn btn-primary me-2">Barra</button>
+      <button class="btn btn-warning">Cocina</button>
+      <button class="btn btn-secondary ms-2" (click)="cerrarOpciones()">Cerrar</button>
+    </div>
+  </div>
+</div>

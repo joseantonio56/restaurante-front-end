@@ -1,0 +1,32 @@
+<div class="container mt-4">
+  <h3 class="text-center">
+    Productos de {{ tipo === 'BARRA' ? 'Barra' : 'Cocina' }}
+  </h3>
+
+  <table class="table table-striped mt-3" *ngIf="productos.length > 0">
+    <thead class="table-dark">
+      <tr>
+        <th>Descripción</th>
+        <th>Precio (€)</th>
+        <th>Stock</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{ producto.descripcion }}</td>
+        <td>{{ producto.precio | currency:'EUR' }}</td>
+        <td>{{ producto.stock }}</td>
+        <td>
+          <button class="btn btn-success btn-sm" (click)="agregarProducto(producto)">
+            Añadir
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="productos.length === 0" class="text-center mt-4">
+    <p>No hay productos disponibles para {{ tipo }}.</p>
+  </div>
+</div>

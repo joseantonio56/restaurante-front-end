@@ -1,0 +1,107 @@
+<div class="container py-4 bg-dark text-white">
+  <h2 class="text-center mb-4">Vista de Pedidos y Ventas</h2>
+
+  <!-- Pedidos Temporales -->
+  <div *ngIf="pedidosBarra.length" class="mb-4">
+    <h4><i class="bi bi-cup-straw"></i> Pedidos de Barra</h4>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pedidosBarra">
+          <td>{{ p.producto.descripcion }}</td>
+          <td>{{ p.cantidad }}</td>
+          <td>{{ p.subtotal | currency:'EUR':'symbol' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="pedidosCocina.length" class="mb-4">
+    <h4><i class="bi bi-basket"></i> Pedidos de Cocina</h4>
+    <table class="table table-dark table-striped">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pedidosCocina">
+          <td>{{ p.producto.descripcion }}</td>
+          <td>{{ p.cantidad }}</td>
+          <td>{{ p.subtotal | currency:'EUR':'symbol' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h4>Total Temporal: {{ total | currency:'EUR':'symbol' }}</h4>
+
+  <div class="d-flex justify-content-end mb-4">
+    <button class="btn btn-success" (click)="crearVenta()">
+      <i class="bi bi-check2-circle"></i> Generar Venta
+    </button>
+  </div>
+
+  <!-- Filtro por fechas y vendedor -->
+  <div class="mb-3 d-flex flex-wrap align-items-center">
+    <label class="form-label me-2">Filtrar por fecha:</label>
+    <input type="date" class="form-control d-inline-block me-2 mb-2" style="width: 180px;" [(ngModel)]="fechaInicio">
+    <input type="date" class="form-control d-inline-block me-2 mb-2" style="width: 180px;" [(ngModel)]="fechaFin">
+
+    <label class="form-label me-2">Filtrar por vendedor:</label>
+    <input type="text" class="form-control d-inline-block me-2 mb-2" style="width: 180px;" placeholder="Nombre vendedor" [(ngModel)]="filtroVendedor">
+
+    <button class="btn btn-primary me-2 mb-2" (click)="filtrarVentas()">
+      <i class="bi bi-funnel"></i> Aplicar
+    </button>
+    <button class="btn btn-secondary mb-2" (click)="limpiarFiltro()">
+      <i class="bi bi-x-circle"></i> Limpiar
+    </button>
+  </div>
+
+  <!-- Tabla de Ventas -->
+  <div *ngIf="ventasFiltradas.length">
+    <h4 class="mt-4"><i class="bi bi-receipt"></i> Ventas Registradas</h4>
+    <table class="table table-dark table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>ID Venta</th>
+          <th>Fecha</th>
+          <th>Total</th>
+          <th>Usuario</th>
+          <th>Mesa</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of ventasFiltradas">
+          <td>{{ v.idVenta }}</td>
+          <td>{{ v.fecha | date:'dd/MM/yyyy' }}</td>
+          <td>{{ v.total | currency:'EUR':'symbol' }}</td>
+          <td>{{ v.usuario.nombre }}</td>
+          <td>{{ v.mesa.id }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger me-1" (click)="eliminarVenta(v.idVenta)">
+              <i class="bi bi-trash"></i>
+            </button>
+            <button class="btn btn-sm btn-info" (click)="generarPDF(v.idVenta)">
+              <i class="bi bi-file-earmark-pdf"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="!ventasFiltradas.length" class="text-center mt-4">
+    <p>No hay ventas que coincidan con los filtros.</p>
+  </div>
+</div>

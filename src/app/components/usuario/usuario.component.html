@@ -1,0 +1,77 @@
+<div class="container py-4">
+
+  <h2 class="text-center mb-4">Gestión de Usuarios</h2>
+
+  <!-- Formulario de crear/editar -->
+  <div class="card p-3 mb-4">
+    <h5>{{ editando ? 'Editar Usuario' : 'Nuevo Usuario' }}</h5>
+    <form (ngSubmit)="guardarUsuario()" #usuarioForm="ngForm">
+
+      <div class="mb-2">
+        <label class="form-label">Nombre</label>
+        <input type="text" class="form-control" [(ngModel)]="nuevoUsuario.nombre" name="nombre" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="nuevoUsuario.email" name="email" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Contraseña</label>
+        <input type="password" class="form-control" [(ngModel)]="nuevoUsuario.contrasena" name="contrasena" required>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label">Rol</label>
+        <select class="form-select" [(ngModel)]="nuevoUsuario.rol" name="rol">
+          <option value="ROLE_ADMIN">ADMIN</option>
+          <option value="ROLE_USER">USUARIO</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Activo</label>
+        <select class="form-select" [(ngModel)]="nuevoUsuario.activo" name="activo">
+          <option [ngValue]="true">Sí</option>
+          <option [ngValue]="false">No</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary">{{ editando ? 'Actualizar' : 'Crear' }}</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="resetForm()">Cancelar</button>
+    </form>
+  </div>
+
+  <!-- Tabla de usuarios -->
+  <div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Email</th>
+          <th>Contraseña</th>
+          <th>Rol</th>
+          <th>Activo</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.idUsuario }}</td>
+          <td>{{ usuario.nombre }}</td>
+          <td>{{ usuario.email }}</td>
+          <td>{{ usuario.contrasena }}</td>
+          <td>{{ usuario.rol }}</td>
+          <td>{{ usuario.activo ? 'Sí' : 'No' }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning me-1" (click)="editarUsuario(usuario)">Editar</button>
+            <button class="btn btn-sm btn-danger" (click)="eliminarUsuario(usuario.idUsuario!)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
