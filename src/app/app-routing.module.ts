@@ -8,6 +8,7 @@ import { PedidosBarraComponent } from './components/pedido-barra/pedido-barra.co
 import { PedidoCocinaComponent } from './components/pedido-cocina/pedido-cocina.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { VentasComponent } from './components/ventas/ventas.component';
+import { CrearMesaComponent } from './components/crear-mesa/crear-mesa.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'pedido-cocina', component: PedidoCocinaComponent},
   {path:'pedido',component:PedidoComponent},
   {path:'ventas',component:VentasComponent},
+  {path:'crear-mesa',component:CrearMesaComponent},
   { path: '**', redirectTo: 'login' } // Redirección por defecto
 ];
 

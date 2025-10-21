@@ -22,6 +22,13 @@
           </a>
         </li>
 
+                <!-- Solo ROLE_ADMIN puede ver CrearMesa -->
+        <li *ngIf="rol === 'ROLE_ADMIN'" class="nav-item">
+          <a class="nav-link" [ngClass]="{active: isActive('/crear-mesas')}" routerLink="/crear-mesa">
+            <i class="bi bi-fork-knife"></i> Crear mesa
+          </a>
+        </li>
+
         <li *ngIf="rol === 'ROLE_ADMIN'" class="nav-item">
           <a class="nav-link" [ngClass]="{active: isActive('/usuarios')}" routerLink="/usuarios">
             <i class="bi bi-people-fill"></i> Usuarios

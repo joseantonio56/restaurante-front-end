@@ -19,6 +19,7 @@ import { PedidosBarraComponent } from './components/pedido-barra/pedido-barra.co
 import { PedidoCocinaComponent } from './components/pedido-cocina/pedido-cocina.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { VentasComponent } from './components/ventas/ventas.component';
+import { CrearMesaComponent } from './components/crear-mesa/crear-mesa.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { VentasComponent } from './components/ventas/ventas.component';
     PedidoCocinaComponent,
     PedidoComponent,
     VentasComponent,
+    CrearMesaComponent,
   ],
   imports: [
     BrowserModule,
